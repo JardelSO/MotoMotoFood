@@ -4,6 +4,7 @@ using MotoMotoFood.Menu;
 using MotoMotoFood.Menus.Submenus;
 using MotoMotoFood.Models;
 using MotoMotoFood.Repositorios;
+using MotoMotoFood.Util;
 
 namespace MotoMotoFood.Menus
 {
@@ -20,9 +21,8 @@ namespace MotoMotoFood.Menus
                 Console.WriteLine("3 - Meu Carrinho");
                 Console.WriteLine("4 - Gerenciar conta");
                 Console.WriteLine("0 - Sair");
-                Console.Write("Escolha uma opção: ");
 
-                string opcao = Console.ReadLine();
+                string opcao = Helpers.LerString("Escolha uma opção: ");
                 switch (opcao)
                 {
                     case "1":
@@ -62,8 +62,7 @@ namespace MotoMotoFood.Menus
             for (int i = 0; i < restaurantes.Count; i++)
                 Console.WriteLine($"{i + 1} - {restaurantes[i].NomeRestaurante}");
 
-            Console.Write("Escolha um restaurante ou 0 para voltar: ");
-            if (int.TryParse(Console.ReadLine(), out int escolha) && escolha > 0 && escolha <= restaurantes.Count)
+            if (int.TryParse(Helpers.LerString("Escolha um restaurante ou 0 para voltar: "), out int escolha) && escolha > 0 && escolha <= restaurantes.Count)
             {
                 MenuFazerPedido.CriarPedido(cliente, restaurantes[escolha - 1]);
             }

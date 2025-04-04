@@ -42,9 +42,6 @@ namespace MotoMotoFood.Util
             Console.WriteLine($"Total acumulado de todos os pedidos: {totalCompleto.ToString("C")}");
         }
 
-
-
-
         public static void ExibirPedido(Pedido pedido)
         {
             for (int i = 0; i < pedido.Itens.Count(); i++)

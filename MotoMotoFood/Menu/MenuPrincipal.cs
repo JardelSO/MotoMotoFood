@@ -22,8 +22,7 @@ namespace MotoMotoFood.Menus
                 Console.WriteLine("1 - Login");
                 Console.WriteLine("2 - Cadastrar");
                 Console.WriteLine("0 - Sair");
-                Console.Write("Escolha uma opção: ");
-                string opcao = Console.ReadLine();
+                string opcao = Helpers.LerString("Escolha uma opção: ");
 
                 switch (opcao)
                 {
@@ -49,10 +48,8 @@ namespace MotoMotoFood.Menus
         {
             Console.Clear();
             Console.WriteLine("--- Login Cliente ---");
-            Console.Write("Email: ");
-            string email = Console.ReadLine();
-            Console.Write("Senha: ");
-            string senha = Console.ReadLine(); 
+            string email = Helpers.LerEmail("Email: ");
+            string senha = Helpers.LerSenha("Senha: ");
 
             Usuario user = AutenticacaoService.LoginCliente(email, senha);
 
