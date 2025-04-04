@@ -1,4 +1,5 @@
 ﻿using System;
+using MotoMotoFood.entitdades;
 using MotoMotoFood.Util.Enums;
 
 namespace MotoMotoFood.Models
@@ -13,7 +14,7 @@ namespace MotoMotoFood.Models
 
         public Conta Conta { get; set; }
 
-        public Entregador(int id, string nome, string email, string senha, string endereco, string cpf, string habilitacao, TipoTransporte tipoTransporte)
+        public Entregador(int id, string nome, string email, string senha, Endereco endereco, string cpf, string habilitacao, TipoTransporte tipoTransporte)
         {
             Id = id;
             Nome = nome;

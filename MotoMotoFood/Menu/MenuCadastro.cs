@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MotoMotoFood.entitdades;
 using MotoMotoFood.Menu;
 using MotoMotoFood.Models;
 using MotoMotoFood.Repositorios;
@@ -13,7 +14,7 @@ namespace MotoMotoFood.Menus
 {
     public static class MenuCadastro
     {
-        public static void Exibir()
+        public static async Task ExibirAsync()
         {
             while (true)
             {
@@ -28,13 +29,13 @@ namespace MotoMotoFood.Menus
                 switch (opcao)
                 {
                     case "1":
-                        CadastrarCliente();
+                        await CadastrarClienteAsync();
                         break;
                     case "2":
-                        CadastrarRestaurante();
+                        await CadastrarRestauranteAsync();
                         break;
                     case "3":
-                        CadastrarEntregador();
+                        await CadastrarEntregadorAsync();
                         break;
                     case "0":
                         return;
@@ -43,12 +44,10 @@ namespace MotoMotoFood.Menus
                         break;
                 }
 
-                Console.WriteLine("\nPressione ENTER para continuar...");
-                //Console.ReadLine();
-            }
+                Console.WriteLine("\nPressione ENTER para continuar...");            }
         }
 
-        private static void CadastrarRestaurante()
+        private static async Task CadastrarRestauranteAsync()
         {
             Console.Clear();
             Console.WriteLine("--- Cadastro Restaurante ---");
@@ -64,7 +63,8 @@ namespace MotoMotoFood.Menus
 
             string senha = Helpers.LerSenha("Senha: ");
 
-            string endereco = Helpers.LerString("Endereço: ");
+            CepService consultaCep = new CepService();
+            Endereco endereco = await consultaCep.ObterEndereco();
 
             string cnpj = Helpers.LerCnpj("CNPJ: ");
 
@@ -88,7 +88,7 @@ namespace MotoMotoFood.Menus
             MenuRestaurante.ExibirMenuRestaurante(restaurante);
         }
 
-        private static void CadastrarEntregador()
+        private static async Task CadastrarEntregadorAsync()
         {
             Console.Clear();
             Console.WriteLine("--- Cadastro Entregador ---");
@@ -103,23 +103,22 @@ namespace MotoMotoFood.Menus
             }
 
             string senha = Helpers.LerSenha("Senha: ");
-            string endereco = Helpers.LerString("Endereço: ");
+            CepService consultaCep = new CepService();
+            Endereco endereco = await consultaCep.ObterEndereco();
             string cpf = Helpers.LerCpf("CPF: ");
             string cnh = Helpers.LerString("CNH: ");
             string transporte = Helpers.LerString("Meio de Transporte (carro, moto, bicicleta): ");
 
-            // Gerando um ID único para o entregador
             int novoId = BancoDeDadosFake.Usuarios.Count + 1;
 
-            // Criando o objeto corretamente com o construtor
-            var entregador = new Entregador(novoId, nome, email, senha, endereco, cpf, cnh, Util.Enums.TipoTransporte.Moto);
+            Entregador entregador = new Entregador(novoId, nome, email, senha, endereco, cpf, cnh, Util.Enums.TipoTransporte.Moto);
 
             BancoDeDadosFake.Usuarios.Add(entregador);
             Console.WriteLine($"\nEntregador {nome} cadastrado com sucesso!");
             MenuEntregador.ExibirMenuEntregador(entregador);
         }
 
-        private static void CadastrarCliente()
+        private static async Task CadastrarClienteAsync()
         {
             Console.Clear();
             Console.WriteLine("--- Cadastro Cliente ---");
@@ -135,7 +134,8 @@ namespace MotoMotoFood.Menus
             }
 
             string senha = Helpers.LerSenha("Senha: ");
-            string endereco = Helpers.LerEmail("Endereço: ");
+            CepService consultaCep = new CepService();
+            Endereco endereco = await consultaCep.ObterEndereco();
             string cpf = Helpers.LerCpf("CPF: ");
 
             Cliente novoCliente = new Cliente

@@ -13,7 +13,7 @@ namespace MotoMotoFood.Menus
 {
     public static class MenuPrincipal
     {
-        public static void Exibir()
+        public static async Task ExibirAsync()
         {
             while (true)
             {
@@ -30,7 +30,7 @@ namespace MotoMotoFood.Menus
                         FazerLogin();
                         break;
                     case "2":
-                        MenuCadastro.Exibir();
+                        await MenuCadastro.ExibirAsync();
                         break;
                     case "0":
                         Console.WriteLine("Saindo...");

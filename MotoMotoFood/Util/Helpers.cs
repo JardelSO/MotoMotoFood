@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using MotoMotoFood.Models;
+using MotoMotoFood.entitdades;
+using MotoMotoFood.Services;
+using MotoMotoFood.Util.Exceptions;
 
 namespace MotoMotoFood.Util
 {
@@ -14,6 +19,36 @@ namespace MotoMotoFood.Util
         {
             Console.WriteLine("\nPressione ENTER para continuar...");
             Console.ReadLine();
+        }
+
+        public static bool ValidarCEP(string cep)
+        {
+            if (string.IsNullOrWhiteSpace(cep))
+                return false;
+
+            cep = Regex.Replace(cep, @"\D", "");
+
+            if (cep.Length != 8)
+                return false;
+
+            return true;
+        }
+
+        public class StringToBoolConverter : JsonConverter<bool>
+        {
+            public override bool Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+            {
+                if (reader.TokenType == JsonTokenType.String)
+                {
+                    return reader.GetString() == "true";
+                }
+                return reader.GetBoolean();
+            }
+
+            public override void Write(Utf8JsonWriter writer, bool value, JsonSerializerOptions options)
+            {
+                writer.WriteBooleanValue(value);
+            }
         }
 
         public static void ExibirPedidosRestaurente(List<Pedido> pedidos)
