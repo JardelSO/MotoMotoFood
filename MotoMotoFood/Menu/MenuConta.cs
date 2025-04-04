@@ -33,7 +33,7 @@ namespace MotoMotoFood.Menu
                 Console.WriteLine("=== Conta ===");
                 Console.WriteLine("1. Visualizar saldo");
                 Console.WriteLine("2. Depositar");
-                Console.WriteLine("3. Sair");
+                Console.WriteLine("0. Sair");
                 string opcao = Helpers.LerString("Escolha uma opção: ");
 
                 switch (opcao)
@@ -44,7 +44,7 @@ namespace MotoMotoFood.Menu
                     case "2":
                         MenuDepositar(usuario.Conta);
                         break;
-                    case "3":
+                    case "0":
                         return;
                     default:
                         Console.WriteLine("Opção inválida!");
@@ -61,7 +61,7 @@ namespace MotoMotoFood.Menu
                 Console.WriteLine("=== Conta ===");
                 Console.WriteLine("1. Visualizar saldo");
                 Console.WriteLine("2. Sacar");
-                Console.WriteLine("3. Sair");
+                Console.WriteLine("0. Sair");
                 string opcao = Helpers.LerString("Escolha uma opção: ");
 
                 switch (opcao)
@@ -72,7 +72,7 @@ namespace MotoMotoFood.Menu
                     case "2":
                         MenuSacar(usuario.Conta);
                         break;
-                    case "3":
+                    case "0":
                         return;
                     default:
                         Console.WriteLine("Opção inválida!");

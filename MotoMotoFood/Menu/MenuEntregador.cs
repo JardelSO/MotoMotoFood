@@ -13,29 +13,31 @@ namespace MotoMotoFood.Menu
     {
         public static void ExibirMenuEntregador(Entregador entregador)
         {
-            Console.Clear();
-            Console.WriteLine("Menu Entregador");
-            Console.WriteLine("1 - Gerenciar Conta");
-            Console.WriteLine("2 - Gerenciar pedidos");
-            if (entregador.StatusEntregador == Util.Enums.StatusEntregador.Off)
-            {
-                Console.WriteLine("3 - Alterar status para online");
-            }
-            else
-            {
-                Console.WriteLine("3 - Alterar status para off");
-            }
-            Console.WriteLine("0 - Sair");
-            Console.Write("Escolha uma opção: ");
-            string opcao = Console.ReadLine();
+            while (true) { 
+                Console.Clear();
+                Console.WriteLine("Menu Entregador");
+                Console.WriteLine("1 - Gerenciar Conta");
+                Console.WriteLine("2 - Gerenciar pedidos");
+                if (entregador.StatusEntregador == Util.Enums.StatusEntregador.Off)
+                {
+                    Console.WriteLine("3 - Alterar status para online");
+                }
+                else
+                {
+                    Console.WriteLine("3 - Alterar status para off");
+                }
+                Console.WriteLine("0 - Sair");
+                Console.Write("Escolha uma opção: ");
+                string opcao = Console.ReadLine();
 
-            switch (opcao)
-            {
-                case "1": MenuConta.GerenciarConta(entregador); break;
-                case "2": MenuGerenciarPedidos(entregador); break;
-                case "3": AlterarStatusEntregador(entregador); break;
-                case "0": return;
-                default: Console.WriteLine("Opção inválida! Pressione Enter..."); Console.ReadLine(); break;
+                switch (opcao)
+                {
+                    case "1": MenuConta.GerenciarConta(entregador); break;
+                    case "2": MenuGerenciarPedidos(entregador); break;
+                    case "3": AlterarStatusEntregador(entregador); break;
+                    case "0": return;
+                    default: Console.WriteLine("Opção inválida! Pressione Enter..."); Console.ReadLine(); break;
+                }
             }
 
 
@@ -90,7 +92,8 @@ namespace MotoMotoFood.Menu
         {
             List<Pedido> pedidosPendente = BancoDeDadosFake.FindPedidosAtivosByEntregador(entregador);
             Helpers.ExibirPedidosRestaurente(pedidosPendente);
-            Helpers.LerInteiroComValorMaximo("Selecione o pedido para finalizar (Digite 0 para sair): ", pedidosPendente.Count);
+            int index = Helpers.LerInteiroComValorMaximo("Selecione o pedido para finalizar (Digite 0 para sair): ", pedidosPendente.Count);
+            pedidosPendente[index].Status = Util.Enums.StatusPedido.CONCLUIDO;
             Console.WriteLine("Pedido finalizado com sucesso!");
             Helpers.LerOpcaoSair();
         }

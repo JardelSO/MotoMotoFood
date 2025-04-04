@@ -14,22 +14,25 @@ namespace MotoMotoFood.Menu
     {
         public static void ExibirMenuRestaurante(Restaurante restaurante)
         {
-            Console.Clear();
-            Console.WriteLine("Menu Restaurante");
-            Console.WriteLine("1 - Gerenciar Produto");
-            Console.WriteLine("2 - Gerenciar Conta");
-            Console.WriteLine("3 - Gerenciar pedidos");
-            Console.WriteLine("0 - Sair");
-            Console.Write("Escolha uma opção: ");
-            string opcao = Console.ReadLine();
-
-            switch (opcao)
+            while (true)
             {
-                case "1": GerenciarProdutos(restaurante); break;
-                case "2": MenuConta.GerenciarConta(restaurante); break;
-                case "3": MenuGerenciarPedidos(restaurante); break;
-                case "0": return;
-                default: Console.WriteLine("Opção inválida! Pressione Enter..."); Console.ReadLine(); break;
+                Console.Clear();
+                Console.WriteLine("Menu Restaurante");
+                Console.WriteLine("1 - Gerenciar Produto");
+                Console.WriteLine("2 - Gerenciar Conta");
+                Console.WriteLine("3 - Gerenciar pedidos");
+                Console.WriteLine("0 - Sair");
+                Console.Write("Escolha uma opção: ");
+                string opcao = Console.ReadLine();
+
+                switch (opcao)
+                {
+                    case "1": GerenciarProdutos(restaurante); break;
+                    case "2": MenuConta.GerenciarConta(restaurante); break;
+                    case "3": MenuGerenciarPedidos(restaurante); break;
+                    case "0": return;
+                    default: Console.WriteLine("Opção inválida! Pressione Enter..."); Console.ReadLine(); break;
+                }
             }
         }
 
@@ -110,7 +113,8 @@ namespace MotoMotoFood.Menu
         {
             List<Pedido> pedidosPendente = BancoDeDadosFake.FindPedidosAtivosByRestaurante(restaurante);
             Helpers.ExibirPedidosRestaurente(pedidosPendente);
-            Helpers.LerInteiroComValorMaximo("Selecione o pedido para finalizar (Digite 0 para sair): ", pedidosPendente.Count);
+            int index = Helpers.LerInteiroComValorMaximo("Selecione o pedido para finalizar (Digite 0 para sair): ", pedidosPendente.Count);
+            pedidosPendente[index].AdicionarEmRota();
             Console.WriteLine("Pedido finalizado com sucesso!");
             Helpers.LerOpcaoSair();
         }

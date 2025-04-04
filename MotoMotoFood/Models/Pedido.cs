@@ -28,6 +28,7 @@ namespace MotoMotoFood.Models
         public void AtribuirEntregador(Entregador entregador)
         {
             Entregador = entregador;
+            entregador.StatusEntregador = StatusEntregador.Ocupado;
         }
 
         public void AdicionarEmRota()

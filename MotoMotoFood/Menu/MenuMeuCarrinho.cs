@@ -35,7 +35,7 @@ namespace MotoMotoFood.Menu
             Console.WriteLine("3. Limpar Carrinho");
             Console.WriteLine("4. Finalizar Pedido");
             Console.WriteLine("0. Voltar");
-            var escolha = Helpers.LerString("Selecione uma opção");
+            var escolha = Helpers.LerString("Selecione uma opção: ");
 
             switch (escolha)
             {
@@ -51,6 +51,8 @@ namespace MotoMotoFood.Menu
                 case "4":
                     MenuFinalizarPedido(pedido);
                     break;
+                case "0":
+                    return;
             }
         }
 
