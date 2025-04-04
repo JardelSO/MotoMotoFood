@@ -53,7 +53,7 @@ namespace MotoMotoFood.Menus
             Console.WriteLine("--- Cadastro Restaurante ---");
             string nome = Helpers.LerString("Nome do Restaurante: ");
 
-            string email = Helpers.LerEmailCadastro("Email: ");
+            string email = ObterEmailValido(true);
 
             if (BancoDeDadosFake.Usuarios.Any(r => r.Email == email))
             {
@@ -72,16 +72,16 @@ namespace MotoMotoFood.Menus
 
             string tempo = Helpers.LerString("Tempo de Entrega (ex: 30min):");
 
-            var restaurante = new Restaurante
+            Restaurante restaurante = new Restaurante
             {
                 NomeRestaurante = nome,
                 Email = email,
-                Senha = senha,
                 Endereco = endereco,
                 CNPJ = cnpj,
                 HorarioFuncionamento = horario,
                 TempoEntrega = tempo
             };
+            restaurante.GerarHashSenha(senha);
 
             BancoDeDadosFake.Usuarios.Add(restaurante);
             Console.WriteLine($"\nRestaurante {nome} cadastrado com sucesso!");
@@ -94,11 +94,11 @@ namespace MotoMotoFood.Menus
             Console.WriteLine("--- Cadastro Entregador ---");
 
             string nome = Helpers.LerString("Nome: ");
-            string email = Helpers.LerEmailCadastro("Email: ");
+            string email = ObterEmailValido(true);
 
             if (BancoDeDadosFake.Usuarios.Any(e => e.Email == email))
             {
-                Console.WriteLine("Já existe um entregador com esse e-mail.");
+                Console.WriteLine("Já existe um usuário com esse e-mail.");
                 return;
             }
 
@@ -107,15 +107,31 @@ namespace MotoMotoFood.Menus
             Endereco endereco = await consultaCep.ObterEndereco();
             string cpf = Helpers.LerCpf("CPF: ");
             string cnh = Helpers.LerString("CNH: ");
-            string transporte = Helpers.LerString("Meio de Transporte (carro, moto, bicicleta): ");
+            Transporte transporte = Helpers.ObterTransporte();
 
             int novoId = BancoDeDadosFake.Usuarios.Count + 1;
 
-            Entregador entregador = new Entregador(novoId, nome, email, senha, endereco, cpf, cnh, Util.Enums.TipoTransporte.Moto);
+            Entregador entregador = new Entregador(novoId, nome, email, senha, endereco, cpf, cnh, transporte);
 
             BancoDeDadosFake.Usuarios.Add(entregador);
             Console.WriteLine($"\nEntregador {nome} cadastrado com sucesso!");
             MenuEntregador.ExibirMenuEntregador(entregador);
+        }
+
+        private static string ObterEmailValido(bool isCadastro)
+        {
+            string email;
+            if (isCadastro)
+            {
+                email = Helpers.LerEmailCadastro("Email: ");
+            }
+            else
+            {
+                email = Helpers.LerEmailLogin("Email: ");
+            }
+            //Segundo fator de autenticação
+            AutenticacaoService.ValidarCodigoEmailConfirmacao(email);
+            return email;
         }
 
         private static async Task CadastrarClienteAsync()
@@ -125,7 +141,7 @@ namespace MotoMotoFood.Menus
 
             string nome = Helpers.LerString("Nome: ");
 
-            string email = Helpers.LerEmailCadastro("Email: ");
+            string email = ObterEmailValido(true);
 
             if (AutenticacaoService.EmailUsuarioExiste(email))
             {
@@ -143,10 +159,10 @@ namespace MotoMotoFood.Menus
             {
                 Nome = nome,
                 Email = email,
-                Senha = senha,
                 Endereco = endereco,
                 CPF = cpf
             };
+            novoCliente.GerarHashSenha(senha);
 
             BancoDeDadosFake.Usuarios.Add(novoCliente);
             Console.WriteLine($"\nCadastro realizado com sucesso! Bem-vindo(a), {nome}.");

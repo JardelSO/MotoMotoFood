@@ -10,20 +10,20 @@ namespace MotoMotoFood.Models
         public StatusEntregador StatusEntregador { get;  set; } 
         public string Cpf { get;  set; }
         public string Habilitacao { get;  set; }
-        public TipoTransporte TipoTransporte { get; set; }
+        public Transporte Transporte { get; set; }
 
         public Conta Conta { get; set; }
 
-        public Entregador(int id, string nome, string email, string senha, Endereco endereco, string cpf, string habilitacao, TipoTransporte tipoTransporte)
+        public Entregador(int id, string nome, string email, string senha, Endereco endereco, string cpf, string habilitacao, Transporte transporte)
         {
             Id = id;
             Nome = nome;
             Email = email;
-            Senha = senha;
+            GerarHashSenha(senha);
             Endereco = endereco;
             Cpf = cpf;
             Habilitacao = habilitacao;
-            TipoTransporte = tipoTransporte;
+            Transporte = transporte;
             StatusEntregador = StatusEntregador.Disponivel;
             Conta = new Conta();
         }

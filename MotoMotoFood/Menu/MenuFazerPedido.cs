@@ -55,12 +55,32 @@ namespace MotoMotoFood.Menus.Submenus
                 Console.WriteLine("Pedido cancelado.");
                 return;
             }
-
-             Pedido novoPedido = new Pedido(BancoDeDadosFake.Pedidos.Count + 1, cliente, restaurante, itens, null);
-             BancoDeDadosFake.Pedidos.Add(novoPedido);
-             Console.WriteLine($"Pedido #{novoPedido.Id} adicionado ao carrinho com sucesso!");
-             Console.WriteLine("Pressione ENTER para continuar...");
-             Console.ReadLine();
+             List<Pedido> pedidoCarrinho = BancoDeDadosFake.GetPedidoPendentePagamento(cliente);
+            if (pedidoCarrinho != null && pedidoCarrinho.Count > 0)
+            {
+                if (pedidoCarrinho[0].Restaurante != restaurante)
+                {
+                    Console.WriteLine("Não é possível adicionar produtos no carrinho de restaurantes diferentes!");
+                    Console.WriteLine("Pressione ENTER para voltar...");
+                    Console.ReadLine();
+                    return;
+                }
+                else
+                {
+                    pedidoCarrinho[0].Itens.AddRange(itens);
+                    Console.WriteLine($"Pedido adicionado ao carrinho com sucesso!");
+                    Console.WriteLine("Pressione ENTER para continuar...");
+                }
+            }
+            else
+            {
+                Pedido novoPedido = new Pedido(BancoDeDadosFake.Pedidos.Count + 1, cliente, restaurante, itens, null);
+                BancoDeDadosFake.Pedidos.Add(novoPedido);
+                Console.WriteLine($"Pedido #{novoPedido.Id} adicionado ao carrinho com sucesso!");
+                Console.WriteLine("Pressione ENTER para continuar...");
+                Console.ReadLine();
+            }
+             
         }
     }
 }

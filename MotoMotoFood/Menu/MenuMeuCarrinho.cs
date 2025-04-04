@@ -26,9 +26,11 @@ namespace MotoMotoFood.Menu
 
         private static void MenuCarrinho(Pedido pedido)
         {
-            Helpers.ExibirPedido(pedido);
-
             Console.WriteLine("=== Menu Carrinho ===");
+            Helpers.ExibirPedido(pedido);
+            if(pedido.Itens.Count > 0) { 
+                Console.WriteLine($"Total a pagar {pedido.ValorTotal:C}");
+            }
 
             Console.WriteLine("1. Alterar quantidade do produto");
             Console.WriteLine("2. Remover produto");
@@ -61,6 +63,7 @@ namespace MotoMotoFood.Menu
             if (pedido.Cliente.Conta.Saldo < pedido.ValorTotal)
             {
                 Console.WriteLine("Saldo insuficiente!");
+                Thread.Sleep(3000);
                 return;
             }
             List<Entregador> entregadoresDisponivel;

@@ -46,7 +46,19 @@ namespace MotoMotoFood.Menu
 
         private static void AlterarStatusEntregador(Entregador entregador)
         {
-            entregador.StatusEntregador = Util.Enums.StatusEntregador.Disponivel;
+            Console.Clear();
+            if(entregador.StatusEntregador == Util.Enums.StatusEntregador.Disponivel)
+            {
+                entregador.StatusEntregador = Util.Enums.StatusEntregador.Off;
+                Console.WriteLine("Voce esta off!");
+
+            }
+            else
+            {
+                entregador.StatusEntregador = Util.Enums.StatusEntregador.Disponivel;
+                Console.WriteLine("Voce esta online!");
+            }
+            Helpers.LerOpcaoSair();
         }
 
         private static void MenuGerenciarPedidos(Entregador entregador)

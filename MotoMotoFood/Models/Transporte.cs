@@ -7,7 +7,7 @@ using MotoMotoFood.Util.Enums;
 
 namespace MotoMotoFood.entitdades
 {
-    class Transporte
+    public class Transporte
     {
         public TipoTransporte Tipo { get; set; }
 

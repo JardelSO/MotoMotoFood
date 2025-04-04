@@ -10,6 +10,7 @@ using MotoMotoFood.Models;
 using MotoMotoFood.entitdades;
 using MotoMotoFood.Services;
 using MotoMotoFood.Util.Exceptions;
+using MotoMotoFood.Util.Enums;
 
 namespace MotoMotoFood.Util
 {
@@ -116,8 +117,60 @@ namespace MotoMotoFood.Util
             }
         }
 
+        public static Transporte ObterTransporte()
+        {
+            Console.Clear();
+            var transporte = new Transporte
+            {
+                Tipo = ObterTipoTransporte(),
+                Modelo = LerString("Informe o modelo: "),
+                Cor = LerString("Informe a cor: "),
+                AnoFabricacao = LerInteiro("Informe o ano de fabricação: ")
+            };
+            transporte.Placa = ObterEntradaValidada($"Informe a placa do {transporte.Tipo}: ", ValidarPlaca, "Placa inválida!");
+            return transporte;
+        }
+
+        public static string ObterEntradaValidada(string mensagem, Func<string, bool> validador, string erro)
+        {
+            Console.Clear();
+            while (true)
+            {
+                Console.WriteLine(mensagem);
+                string entrada = Console.ReadLine();
+                if (validador(entrada))
+                {
+                    return entrada;
+                }
+                Console.WriteLine(erro);
+            }
+        }
+
+        public static TipoTransporte ObterTipoTransporte()
+        {
+            Console.Clear();
+            Console.WriteLine("Escolha uma das categorias para seu transporte:");
+
+            foreach (var tipo in Enum.GetValues(typeof(TipoTransporte)).Cast<TipoTransporte>())
+            {
+                Console.WriteLine($"{(int)tipo} - {tipo}");
+            }
+
+            while (true)
+            {
+                Console.Write("Digite o número correspondente: ");
+                if (int.TryParse(Console.ReadLine(), out int codigo) && Enum.IsDefined(typeof(TipoTransporte), codigo))
+                {
+                    return (TipoTransporte)codigo;
+                }
+
+                Console.WriteLine("Opção inválida! Escolha um número válido.");
+            }
+        }
+
         public static bool LerBool(string mensagem)
         {
+            Console.Clear();
             while (true)
             {
                 Console.Write(mensagem + " (Sim/Não): ");
@@ -135,6 +188,7 @@ namespace MotoMotoFood.Util
 
         public static string LerEmailLogin(string mensagem)
         {
+            Console.Clear();
             string entrada;
             while (true)
             {
@@ -152,6 +206,7 @@ namespace MotoMotoFood.Util
 
         public static string LerEmailCadastro(string mensagem)
         {
+            Console.Clear();
             string entrada;
             while (true)
             {
@@ -175,6 +230,7 @@ namespace MotoMotoFood.Util
         }
         public static string LerSenha(string mensagem)
         {
+            Console.Clear();
             string entrada;
             while (true)
             {
@@ -190,6 +246,7 @@ namespace MotoMotoFood.Util
 
         public static decimal LerDecimal(string mensagem)
         {
+            Console.Clear();
             decimal valor;
             while (true)
             {
@@ -205,6 +262,7 @@ namespace MotoMotoFood.Util
 
         public static int LerInteiro(string mensagem)
         {
+            Console.Clear();
             int valor;
             while (true)
             {
@@ -220,6 +278,7 @@ namespace MotoMotoFood.Util
 
         public static int LerInteiroComValorMaximo(string mensagem, int maxRange)
         {
+            Console.Clear();
             while (true)
             {
                 Console.Write(mensagem);
@@ -255,6 +314,7 @@ namespace MotoMotoFood.Util
 
         public static string LerCnpj(string mensagem)
         {
+            Console.Clear();
             string entrada;
             while (true)
             {
@@ -270,6 +330,7 @@ namespace MotoMotoFood.Util
 
         public static string LerCpf(string mensagem)
         {
+            Console.Clear();
             string entrada;
             while (true)
             {
@@ -285,6 +346,7 @@ namespace MotoMotoFood.Util
 
         public static void LerValorParaSaque(string mensagem, Conta conta)
         {
+            Console.Clear();
             while (true)
             {
                 if (conta.Sacar(LerDecimal(mensagem)))
@@ -299,6 +361,7 @@ namespace MotoMotoFood.Util
 
         public static void LerValorParaDeposito(string mensagem, Conta conta)
         {
+            Console.Clear();
             while (true)
             {
 
@@ -314,6 +377,7 @@ namespace MotoMotoFood.Util
 
         public static string LerPlaca(string mensagem)
         {
+            Console.Clear();
             string entrada;
             while (true)
             {
