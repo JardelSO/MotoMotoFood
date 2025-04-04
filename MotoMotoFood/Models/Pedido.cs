@@ -45,6 +45,7 @@ namespace MotoMotoFood.Models
         {
             Restaurante.AdicionarSaldo(ValorTotal);
             Cliente.Debitar(ValorTotal);
+            Entregador.AdicionarSaldo(10);
         }
     }
 }

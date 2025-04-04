@@ -48,7 +48,7 @@ namespace MotoMotoFood.Menus
         {
             Console.Clear();
             Console.WriteLine("--- Login Cliente ---");
-            string email = Helpers.LerEmail("Email: ");
+            string email = Helpers.LerEmailLogin("Email: ");
             string senha = Helpers.LerSenha("Senha: ");
 
             Usuario user = AutenticacaoService.LoginCliente(email, senha);

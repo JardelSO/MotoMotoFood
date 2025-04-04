@@ -53,7 +53,7 @@ namespace MotoMotoFood.Menus
             Console.WriteLine("--- Cadastro Restaurante ---");
             string nome = Helpers.LerString("Nome do Restaurante: ");
 
-            string email = Helpers.LerEmail("Email: ");
+            string email = Helpers.LerEmailCadastro("Email: ");
 
             if (BancoDeDadosFake.Usuarios.Any(r => r.Email == email))
             {
@@ -94,7 +94,7 @@ namespace MotoMotoFood.Menus
             Console.WriteLine("--- Cadastro Entregador ---");
 
             string nome = Helpers.LerString("Nome: ");
-            string email = Helpers.LerEmail("Email: ");
+            string email = Helpers.LerEmailCadastro("Email: ");
 
             if (BancoDeDadosFake.Usuarios.Any(e => e.Email == email))
             {
@@ -125,11 +125,12 @@ namespace MotoMotoFood.Menus
 
             string nome = Helpers.LerString("Nome: ");
 
-            string email = Helpers.LerEmail("Email: ");
+            string email = Helpers.LerEmailCadastro("Email: ");
 
             if (AutenticacaoService.EmailUsuarioExiste(email))
             {
                 Console.WriteLine("Já existe um cliente com esse e-mail.");
+                Thread.Sleep(3000);
                 return;
             }
 

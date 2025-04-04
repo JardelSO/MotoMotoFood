@@ -64,6 +64,7 @@ namespace MotoMotoFood.Menu
                 return;
             }
             List<Entregador> entregadoresDisponivel;
+            int contador = 0;
             while (true)
             {
                 entregadoresDisponivel = BancoDeDadosFake.GetEntregadorDisponivel();
@@ -71,8 +72,16 @@ namespace MotoMotoFood.Menu
                 {
                     break;
                 }
+                if(contador == 10)
+                {
+                    Console.Write("Desculpe! Não foi possível encontrar um entregador! Tente novamente mais tarde.");
+                    Console.WriteLine("Seu pedido será cancelado");
+                    BancoDeDadosFake.Pedidos.Remove(pedido);
+                    return;
+                }
                 Console.WriteLine("Procurando entregador ...");
                 Thread.Sleep(5000);
+                contador++;
             }
             pedido.AtribuirEntregador(entregadoresDisponivel[0]);
             pedido.RealizarPagamento();

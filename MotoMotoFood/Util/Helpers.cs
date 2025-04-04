@@ -133,7 +133,7 @@ namespace MotoMotoFood.Util
         }
 
 
-        public static string LerEmail(string mensagem)
+        public static string LerEmailLogin(string mensagem)
         {
             string entrada;
             while (true)
@@ -147,6 +147,30 @@ namespace MotoMotoFood.Util
                 }
 
                 Console.WriteLine("Entrada inválida! O valor não corresponde a um email válido.");
+            }
+        }
+
+        public static string LerEmailCadastro(string mensagem)
+        {
+            string entrada;
+            while (true)
+            {
+                Console.Write(mensagem);
+                entrada = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(entrada) && regexEmail.IsMatch(entrada))
+                {
+                    if (!AutenticacaoService.EmailUsuarioExiste(entrada))
+                    {
+                        return entrada;
+                    }
+                    else
+                    {
+                        Console.WriteLine("E-mail já cadastrado.");
+                    }
+                }
+                else { Console.WriteLine("Entrada inválida! O valor não corresponde a um email válido."); }
+
             }
         }
         public static string LerSenha(string mensagem)
