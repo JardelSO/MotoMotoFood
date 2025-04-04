@@ -13,7 +13,8 @@ namespace MotoMotoFood.Menu
     {
         public static void ExibirMenuEntregador(Entregador entregador)
         {
-            while (true) { 
+            while (true)
+            {
                 Console.Clear();
                 Console.WriteLine("Menu Entregador");
                 Console.WriteLine("1 - Gerenciar Conta");
@@ -28,7 +29,7 @@ namespace MotoMotoFood.Menu
                 }
                 Console.WriteLine("0 - Sair");
                 Console.Write("Escolha uma opção: ");
-                string opcao = Console.ReadLine();
+                string opcao = Helpers.LerString("Escolha uma opção: ");
 
                 switch (opcao)
                 {
@@ -59,8 +60,7 @@ namespace MotoMotoFood.Menu
                 Console.WriteLine("2 - Finalizar pedido");
                 Console.WriteLine("3 - Visualizar Historico Pedidos");
                 Console.WriteLine("0 - Voltar");
-                Console.Write("Escolha uma opção: ");
-                string opcao = Console.ReadLine();
+                string opcao = Helpers.LerString("Escolha uma opção: ");
 
                 switch (opcao)
                 {

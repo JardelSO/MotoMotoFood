@@ -7,6 +7,7 @@ using MotoMotoFood.Menu;
 using MotoMotoFood.Models;
 using MotoMotoFood.Repositorios;
 using MotoMotoFood.Services;
+using MotoMotoFood.Util;
 
 namespace MotoMotoFood.Menus
 {
@@ -22,8 +23,7 @@ namespace MotoMotoFood.Menus
                 Console.WriteLine("2 - Cadastro Restaurante");
                 Console.WriteLine("3 - Cadastro Entregador");
                 Console.WriteLine("0 - Voltar");
-                Console.Write("Escolha uma opção: ");
-                string opcao = Console.ReadLine();
+                string opcao = Helpers.LerString("Escolha uma opção: ");
 
                 switch (opcao)
                 {
@@ -44,7 +44,7 @@ namespace MotoMotoFood.Menus
                 }
 
                 Console.WriteLine("\nPressione ENTER para continuar...");
-                Console.ReadLine();
+                //Console.ReadLine();
             }
         }
 
@@ -52,11 +52,9 @@ namespace MotoMotoFood.Menus
         {
             Console.Clear();
             Console.WriteLine("--- Cadastro Restaurante ---");
-            Console.Write("Nome do Restaurante: ");
-            string nome = Console.ReadLine();
+            string nome = Helpers.LerString("Nome do Restaurante: ");
 
-            Console.Write("Email: ");
-            string email = Console.ReadLine();
+            string email = Helpers.LerEmail("Email: ");
 
             if (BancoDeDadosFake.Usuarios.Any(r => r.Email == email))
             {
@@ -64,20 +62,15 @@ namespace MotoMotoFood.Menus
                 return;
             }
 
-            Console.Write("Senha: ");
-            string senha = Console.ReadLine();
+            string senha = Helpers.LerSenha("Senha: ");
 
-            Console.Write("Endereço: ");
-            string endereco = Console.ReadLine();
+            string endereco = Helpers.LerString("Endereço: ");
 
-            Console.Write("CNPJ: ");
-            string cnpj = Console.ReadLine();
+            string cnpj = Helpers.LerCnpj("CNPJ: ");
 
-            Console.Write("Horário de Funcionamento: ");
-            string horario = Console.ReadLine();
+            string horario = Helpers.LerString("Horário de Funcionamento: ");
 
-            Console.Write("Tempo de Entrega (ex: 30min): ");
-            string tempo = Console.ReadLine();
+            string tempo = Helpers.LerString("Tempo de Entrega (ex: 30min):");
 
             var restaurante = new Restaurante
             {
@@ -99,11 +92,9 @@ namespace MotoMotoFood.Menus
         {
             Console.Clear();
             Console.WriteLine("--- Cadastro Entregador ---");
-            Console.Write("Nome: ");
-            string nome = Console.ReadLine();
 
-            Console.Write("Email: ");
-            string email = Console.ReadLine();
+            string nome = Helpers.LerString("Nome: ");
+            string email = Helpers.LerEmail("Email: ");
 
             if (BancoDeDadosFake.Usuarios.Any(e => e.Email == email))
             {
@@ -111,20 +102,11 @@ namespace MotoMotoFood.Menus
                 return;
             }
 
-            Console.Write("Senha: ");
-            string senha = Console.ReadLine();
-
-            Console.Write("Endereço: ");
-            string endereco = Console.ReadLine();
-
-            Console.Write("CPF: ");
-            string cpf = Console.ReadLine();
-
-            Console.Write("CNH: ");
-            string cnh = Console.ReadLine();
-
-            Console.Write("Meio de Transporte (carro, moto, bicicleta): ");
-            string transporte = Console.ReadLine();
+            string senha = Helpers.LerSenha("Senha: ");
+            string endereco = Helpers.LerString("Endereço: ");
+            string cpf = Helpers.LerCpf("CPF: ");
+            string cnh = Helpers.LerString("CNH: ");
+            string transporte = Helpers.LerString("Meio de Transporte (carro, moto, bicicleta): ");
 
             // Gerando um ID único para o entregador
             int novoId = BancoDeDadosFake.Usuarios.Count + 1;
@@ -137,19 +119,14 @@ namespace MotoMotoFood.Menus
             MenuEntregador.ExibirMenuEntregador(entregador);
         }
 
-
-
-
-
         private static void CadastrarCliente()
         {
             Console.Clear();
             Console.WriteLine("--- Cadastro Cliente ---");
-            Console.Write("Nome: ");
-            string nome = Console.ReadLine();
 
-            Console.Write("Email: ");
-            string email = Console.ReadLine();
+            string nome = Helpers.LerString("Nome: ");
+
+            string email = Helpers.LerEmail("Email: ");
 
             if (AutenticacaoService.EmailUsuarioExiste(email))
             {
@@ -157,14 +134,9 @@ namespace MotoMotoFood.Menus
                 return;
             }
 
-            Console.Write("Senha: ");
-            string senha = Console.ReadLine();
-
-            Console.Write("Endereço: ");
-            string endereco = Console.ReadLine();
-
-            Console.Write("CPF: ");
-            string cpf = Console.ReadLine();
+            string senha = Helpers.LerSenha("Senha: ");
+            string endereco = Helpers.LerEmail("Endereço: ");
+            string cpf = Helpers.LerCpf("CPF: ");
 
             Cliente novoCliente = new Cliente
             {

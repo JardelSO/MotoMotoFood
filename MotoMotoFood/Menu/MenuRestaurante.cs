@@ -23,7 +23,7 @@ namespace MotoMotoFood.Menu
                 Console.WriteLine("3 - Gerenciar pedidos");
                 Console.WriteLine("0 - Sair");
                 Console.Write("Escolha uma opção: ");
-                string opcao = Console.ReadLine();
+                string opcao = Helpers.LerString("Escolha uma opção: ");
 
                 switch (opcao)
                 {
@@ -47,8 +47,7 @@ namespace MotoMotoFood.Menu
                 Console.WriteLine("3 - Editar");
                 Console.WriteLine("4 - Visualizar");
                 Console.WriteLine("0 - Voltar");
-                Console.Write("Escolha uma opção: ");
-                string opcao = Console.ReadLine();
+                string opcao = Helpers.LerString("Escolha uma opção: ");
 
                 switch (opcao)
                 {
@@ -80,8 +79,7 @@ namespace MotoMotoFood.Menu
                 Console.WriteLine("2 - Finalizar pedido");
                 Console.WriteLine("3 - Visualizar Historico Pedidos");
                 Console.WriteLine("0 - Voltar");
-                Console.Write("Escolha uma opção: ");
-                string opcao = Console.ReadLine();
+                string opcao = Helpers.LerString("Escolha uma opção: ");
 
                 switch (opcao)
                 {

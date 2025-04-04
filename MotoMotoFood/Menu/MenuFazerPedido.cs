@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MotoMotoFood.Models;
 using MotoMotoFood.Repositorios;
+using MotoMotoFood.Util;
 
 namespace MotoMotoFood.Menus.Submenus
 {
@@ -30,8 +31,7 @@ namespace MotoMotoFood.Menus.Submenus
                     Console.WriteLine($"{i + 1} - {produtos[i].Nome} - R${produtos[i].Preco} ({produtos[i].QuantidadeDisponivel} disponíveis)");
                 }
 
-                Console.Write("Escolha um produto (0 para finalizar): ");
-                if (!int.TryParse(Console.ReadLine(), out int opcao) || opcao < 0 || opcao > produtos.Count)
+                if (!int.TryParse(Helpers.LerString("Escolha um produto (0 para finalizar): "), out int opcao) || opcao < 0 || opcao > produtos.Count)
                 {
                     Console.WriteLine("Opção inválida!");
                     continue;
@@ -39,8 +39,7 @@ namespace MotoMotoFood.Menus.Submenus
                 if (opcao == 0) break;
 
                 Produto produtoEscolhido = produtos[opcao - 1];
-                Console.Write("Quantidade: ");
-                if (!int.TryParse(Console.ReadLine(), out int quantidade) || quantidade < 1 || quantidade > produtoEscolhido.QuantidadeDisponivel)
+                if (!int.TryParse(Helpers.LerString("Quantidade: "), out int quantidade) || quantidade < 1 || quantidade > produtoEscolhido.QuantidadeDisponivel)
                 {
                     Console.WriteLine("Quantidade inválida!");
                     continue;
