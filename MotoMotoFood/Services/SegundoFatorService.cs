@@ -17,8 +17,6 @@ namespace MotoMotoFood.Services
 
         private static string assunto = "E-mail Confirmação";
 
-        private static string corpo = "Segue o código de confirmação do email para o MOTO MOTO FOOD: ";
-
         public static void EnviarEmailConfirmacao(string emailDestino, int code)
         {
             try

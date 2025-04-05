@@ -48,7 +48,7 @@ namespace MotoMotoFood.Services
                     Console.WriteLine("Foi enviado um novo código de confirmação!");
                 }
 
-                Console.Write("Foi enviado um código de confirmação para o seu e-mail. Informe o código: ");
+                Console.Write("Foi enviado um código de confirmação para o seu e-mail, caso não encontre na caixa de entrada verifique na caixa de spam. Informe o código: ");
                 if (int.TryParse(Console.ReadLine(), out int codigoDigitado) && codigoDigitado == codigoConfirmacao)
                 {
                     break;
